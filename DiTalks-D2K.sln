@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiTalks-D2K", "DiTalks-D2K\DiTalks-D2K.csproj", "{8FC874E4-3C88-4B43-9C40-2DEC5881FFFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiTalks-test", "DiTalks-test\DiTalks-test.csproj", "{7B3D81E1-67D9-4CF2-B71B-BDA3B6EE1C57}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8FC874E4-3C88-4B43-9C40-2DEC5881FFFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FC874E4-3C88-4B43-9C40-2DEC5881FFFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FC874E4-3C88-4B43-9C40-2DEC5881FFFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FC874E4-3C88-4B43-9C40-2DEC5881FFFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B3D81E1-67D9-4CF2-B71B-BDA3B6EE1C57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B3D81E1-67D9-4CF2-B71B-BDA3B6EE1C57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B3D81E1-67D9-4CF2-B71B-BDA3B6EE1C57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B3D81E1-67D9-4CF2-B71B-BDA3B6EE1C57}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

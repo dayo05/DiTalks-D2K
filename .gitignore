@@ -1,0 +1,6 @@
+*.dll
+*.pdb
+DiTalks-D2K/bin/*
+DiTalks-D2K/obj/*
+DiTalks-test/bin/*
+DiTalks-test/obj/*
