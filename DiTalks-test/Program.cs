@@ -3,7 +3,7 @@ using System.Net.Sockets;
 using System.Text;
 
 var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-socket.Connect(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8080));
+socket.Connect(new IPEndPoint(IPAddress.Parse("20.196.218.17"), 8080));
 while (true)
 {
     var buf = new byte[100000];
