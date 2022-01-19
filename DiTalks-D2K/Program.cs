@@ -23,11 +23,22 @@ client.Ready += () =>
 };
 client.MessageReceived += async message =>
 {
-    sockets.RemoveAll(x => !x.Connected);
-    sockets.ForEach(x => x.Send(Encoding.UTF8.GetBytes(message.Content)));
+    var r = new List<Socket>();
+    sockets.ForEach(x => {
+        try
+        {
+            x.Send(Encoding.UTF8.GetBytes(message.Content));
+        }
+        catch (Exception)
+        {
+            r.Add(x);
+        }
+    });
+    foreach (var x in r)
+        sockets.Remove(x);
 };
 
-await client.LoginAsync(TokenType.Bot, "NzQwODQ5NzIxMjQwOTc3NDM3.XyvAEQ.qT52IluqnMpK5p3fw2WwLeipLO4");
+await client.LoginAsync(TokenType.Bot, "NzQwODQ5NzIxMjQwOTc3NDM3.XyvAEQ.NM20EMFWgwxIUHOJOh37C1rKRK0");
 await client.StartAsync();
 
 while (true)
