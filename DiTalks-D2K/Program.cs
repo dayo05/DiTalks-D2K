@@ -3,6 +3,7 @@ using System.Net.Sockets;
 using System.Text;
 using Discord;
 using Discord.WebSocket;
+using System.Text.Json;
 
 var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 socket.Bind(new IPEndPoint(IPAddress.Any, 8080));
@@ -29,8 +30,9 @@ client.MessageReceived += async message =>
         {
             x.Send(Encoding.UTF8.GetBytes(message.Content));
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            Console.WriteLine(e.Message + Environment.NewLine + e.StackTrace);
             r.Add(x);
         }
     });
