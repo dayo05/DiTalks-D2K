@@ -24,6 +24,7 @@ client.Ready += () =>
 };
 client.MessageReceived += async message =>
 {
+    if (message.Author.IsBot) return;
     var r = new List<Socket>();
     sockets.ForEach(x => {
         try
