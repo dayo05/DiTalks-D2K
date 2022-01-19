@@ -40,7 +40,7 @@ client.MessageReceived += async message =>
         sockets.Remove(x);
 };
 
-await client.LoginAsync(TokenType.Bot, "NzQwODQ5NzIxMjQwOTc3NDM3.XyvAEQ.NM20EMFWgwxIUHOJOh37C1rKRK0");
+await client.LoginAsync(TokenType.Bot, new StreamReader("toekn.txt").ReadToEnd());
 await client.StartAsync();
 
 while (true)
