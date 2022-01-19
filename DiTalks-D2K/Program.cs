@@ -5,7 +5,10 @@ using Discord;
 using Discord.WebSocket;
 using System.Text.Json;
 
+
 var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
+
 socket.Bind(new IPEndPoint(IPAddress.Any, 8080));
 socket.Listen(10);
 
@@ -25,21 +28,25 @@ client.Ready += () =>
 client.MessageReceived += async message =>
 {
     if (message.Author.IsBot || message.Author.IsWebhook) return;
+    var prcMsg = message.Content;
+    foreach (var user in message.MentionedUsers)
+        prcMsg = prcMsg.Replace($"\u003C@!{user.Id}\u003E", $"@{user.Username}");
     var r = new List<Socket>();
+    var smg = JsonSerializer.Serialize(new
+    {
+        Message = prcMsg,
+        SendBy = message.Author.Username
+    });
+
+    Console.WriteLine(smg);
     sockets.ForEach(x => {
         try
         {
-            var smg = JsonSerializer.Serialize(new
-            {
-                Message = message.Content,
-                SendBy = message.Author.Username
-            });
-
-            Console.WriteLine(smg);
             x.Send(Encoding.UTF8.GetBytes(smg));
         }
         catch (Exception e)
         {
+            Console.WriteLine("Disconnected " + x.RemoteEndPoint.ToString());
             Console.WriteLine(e.Message + Environment.NewLine + e.StackTrace);
             r.Add(x);
         }
