@@ -28,7 +28,14 @@ client.MessageReceived += async message =>
     sockets.ForEach(x => {
         try
         {
-            x.Send(Encoding.UTF8.GetBytes(message.Content));
+            var smg = JsonSerializer.Serialize(new
+            {
+                Message = message.Content,
+                SendBy = message.Author.Username
+            });
+
+            Console.WriteLine(smg);
+            x.Send(Encoding.UTF8.GetBytes(smg));
         }
         catch (Exception e)
         {
