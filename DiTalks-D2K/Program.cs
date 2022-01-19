@@ -35,7 +35,8 @@ client.MessageReceived += async message =>
     var smg = JsonSerializer.Serialize(new
     {
         Message = prcMsg,
-        SendBy = message.Author.Username
+        SendBy = message.Author.Username,
+        Channel = message.Channel.Name
     });
 
     Console.WriteLine(smg);
