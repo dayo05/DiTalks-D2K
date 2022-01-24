@@ -21,20 +21,28 @@ client.Log += e =>
     Console.WriteLine(e);
     return Task.CompletedTask;
 };
-client.Ready += () =>
+
+client.Ready += async () =>
 {
     Console.WriteLine($"{client.CurrentUser} connected");
-    return Task.CompletedTask;
+    await client.CreateGlobalApplicationCommandAsync(new SlashCommandBuilder
+    {
+        Name = "ditalks",
+        Description = "어느 방에서든 카카오톡으로 메시지를 전송합니다.",
+        Options = new List<SlashCommandOptionBuilder>()
+        {
+            new()
+            {
+                Name = "message",
+                Type = ApplicationCommandOptionType.String,
+                Description = "카카오톡에 전송할 메시지",
+                IsRequired = true
+            }
+        }
+    }.Build());
 };
 
-client.Connected += async () =>
-{
-    var forceD2KCommand = new SlashCommandBuilder();
-    forceD2KCommand.WithName("ditalks");
-    forceD2KCommand.WithDescription("어느 방에서든 카카오톡으로 메시지를 전송합니다.");
-    forceD2KCommand.AddOption("message", ApplicationCommandOptionType.String, "카카오톡에 전송할 메시지", isRequired: true);
-    await client.CreateGlobalApplicationCommandAsync(forceD2KCommand.Build());
-};
+client.JoinedGuild += async e => await e.SystemChannel.SendMessageAsync("이름이가 서버에 가입했습니다! :D");
 
 client.SlashCommandExecuted += async command =>
 {
@@ -79,7 +87,12 @@ client.MessageReceived += async message =>
         Message = prcMsg,
         SendBy = message.Author.Username,
         Channel = message.Channel.Name,
-        IsForce = false
+        IsForce = false,
+        File = message.Attachments.Select(x => new
+        {
+            Name = x.Filename,
+            Url = x.Url
+        }).ToArray()
     });
 };
 
