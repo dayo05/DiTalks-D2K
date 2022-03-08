@@ -6,6 +6,8 @@ using Discord.WebSocket;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
+var sendLock = new object();
+
 var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
 
@@ -99,6 +101,18 @@ client.MessageReceived += async message =>
 await client.LoginAsync(TokenType.Bot, new StreamReader("token.txt").ReadToEnd());
 await client.StartAsync();
 
+new Thread(() =>
+{
+    while (true)
+    {
+        Thread.Sleep(30000);
+        TrySendMessageToSocket(new
+        {
+            Message = "ping"
+        });
+    }
+}).Start();
+
 while (true)
 {
     sockets.Add(socket.Accept());
@@ -112,7 +126,10 @@ void TrySendMessageToSocket(object message)
     sockets.ForEach(x => {
         try
         {
-            x.Send(Encoding.UTF8.GetBytes(smg));
+            lock (sendLock)
+            {
+                x.Send(Encoding.UTF8.GetBytes(smg));
+            }
         }
         catch (Exception e)
         {
